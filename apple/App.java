@@ -37,6 +37,7 @@ public class App {
         }
     }
                                                             // prettyPrintApple 구현
+                                                 
     
     public static void main(String[] args) {
 
@@ -51,6 +52,22 @@ public class App {
         // List<Apple> redApples = filterApplesByColor(inventory, Color.RED);
         prettyPrintApple(inventory, new AppleFancyFormatter());                                 // AppleFormatter 인터페이스를 구현하는 메소드 둘 사용
         prettyPrintApple(inventory, new AppleSimpleFormatter());
+
+
+
+        List<Apple> redApplesByAnonymous = filterApples(inventory, new ApplePredicate(){
+
+            @Override
+            public boolean test(Apple apple) {
+                return Color.RED.equals(apple.getColor());
+            }
+            
+        });         // 익명클래스로 빨간 사과 객체 생성
+        
+        List<Apple> redApplesByLambda = filterApples(inventory, apple -> Color.RED.equals(apple.getColor()));
+
+        
+                    // 람다식으로 빨간 사과 객체 생성
         
     }
 }
