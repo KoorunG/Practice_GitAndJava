@@ -3,7 +3,7 @@ package apple;
 public class Apple {
 
     Color color;
-    
+
     public Color getColor() {
         return color;
     }
@@ -19,6 +19,13 @@ public class Apple {
     }
 
     public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public Apple(){}
+    
+    public Apple(Color color, int weight){
+        this.color = color;
         this.weight = weight;
     }
 
