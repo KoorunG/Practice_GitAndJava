@@ -40,16 +40,16 @@ public class App {
     
     public static void main(String[] args) {
 
-        Apple apple1 = new Apple(Color.GREEN, 150);
-        Apple apple2 = new Apple(Color.RED, 170);
-        Apple apple3 = new Apple(Color.GREEN, 100);
-        Apple apple4 = new Apple(Color.RED, 80);
-        Apple apple5 = new Apple(Color.GREEN, 200);
-
-        List<Apple> inventory = Arrays.asList(apple1,apple2,apple3,apple4,apple5);
+        List<Apple> inventory = Arrays.asList(
+            new Apple(Color.GREEN, 150),
+            new Apple(Color.RED, 170),
+            new Apple(Color.GREEN, 100),
+            new Apple(Color.RED, 80),
+            new Apple(Color.GREEN, 200));              // inventory에 사과 추가
+            
         // List<Apple> greenApples = filterApplesByColor(inventory, Color.GREEN);
         // List<Apple> redApples = filterApplesByColor(inventory, Color.RED);
-        prettyPrintApple(inventory, new AppleFancyFormatter());
+        prettyPrintApple(inventory, new AppleFancyFormatter());                                 // AppleFormatter 인터페이스를 구현하는 메소드 둘 사용
         prettyPrintApple(inventory, new AppleSimpleFormatter());
         
     }
