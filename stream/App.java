@@ -76,6 +76,14 @@ public class App {
          // skip(n) -> n개를 건너 뛰고 출력 , limit(n) -> 처음부터 n개만 출력
 
          
+
+         menu.stream()
+         .filter(Dish::isVegetarian)
+         .findAny() /*여기까지 스트림 Optional<Dish> 반환 */.ifPresent(dish -> System.out.println(dish.getName())); //값이 있으면 출력, 없으면 아무일도 일어나지 않음
+
+
+         int count = menu.stream().map(d->1).reduce(0, (a,b)->a+b);
+         System.out.println(count);         // Map - Reduce 패턴 : 쉽게 병렬화 가능, 구글이 웹 검색에 적용하면서 유행함
     }
   
 
