@@ -29,7 +29,7 @@ public class Apple {
         this.weight = weight;
     }
 
-    enum Color {
+    public enum Color {
         RED,
         GREEN   
     }

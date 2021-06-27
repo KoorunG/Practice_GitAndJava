@@ -6,7 +6,7 @@ import java.util.List;
 
 import apple.Apple;
 import apple.Apple.Color;
-import static java.util.Comparator.comparing;
+import static java.util.Comparator.*;
 
 public class AppleComparator implements Comparator<Apple> {
 
@@ -41,6 +41,10 @@ public class AppleComparator implements Comparator<Apple> {
 
 
         inventory.sort(comparing(Apple::getWeight));                 // 4단계 -> 메소드 참조 ( java.util.Comparator.comparing 메소드 이용 )
+
+        inventory.sort(comparing(Apple::getWeight).reversed());      // Comparator.reversed() 메소드 -> 정렬 순서 반대로
+
+        inventory.sort(comparing(Apple::getWeight).thenComparing(Apple::getColor)); // Comparator.thenComparing(Comparator) 메소드 -> Comparator을 이어붙임
 
 
     }
