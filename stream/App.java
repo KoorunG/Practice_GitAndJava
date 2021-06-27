@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class App {
 
-    static List<Dish> menu = Arrays.asList(
+        public static List<Dish> menu = Arrays.asList(
             new Dish("pork", false, 800, Dish.Type.MEAT),
             new Dish("beef", false, 700, Dish.Type.MEAT),
             new Dish("chicken", false, 400, Dish.Type.MEAT),
@@ -21,7 +21,7 @@ public class App {
             new Dish("salmon", false, 450, Dish.Type.FISH)
         );
 
-        static List<Dish> specialMenu = Arrays.asList(
+        public static List<Dish> specialMenu = Arrays.asList(
             new Dish("season fruit", true, 120, Dish.Type.OTHER),
             new Dish("prawns", false, 300, Dish.Type.FISH),
             new Dish("rice", true, 350, Dish.Type.OTHER),
