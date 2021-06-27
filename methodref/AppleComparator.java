@@ -7,6 +7,7 @@ import java.util.List;
 import apple.Apple;
 import apple.Apple.Color;
 import static java.util.Comparator.*;
+import java.util.function.Predicate;
 
 public class AppleComparator implements Comparator<Apple> {
 
@@ -45,6 +46,14 @@ public class AppleComparator implements Comparator<Apple> {
         inventory.sort(comparing(Apple::getWeight).reversed());      // Comparator.reversed() 메소드 -> 정렬 순서 반대로
 
         inventory.sort(comparing(Apple::getWeight).thenComparing(Apple::getColor)); // Comparator.thenComparing(Comparator) 메소드 -> Comparator을 이어붙임
+
+
+
+        Predicate<Apple> redApple = apple -> apple.getColor().equals(Color.RED);
+        Predicate<Apple> notRedApple = redApple.negate();                                       // Predicate의 default 메소드 .negate() : 프레디케이트 반전
+        Predicate<Apple> redAndHeavyApple = redApple.and(apple -> apple.getWeight() > 150);     // Predicate의 default 메소드 .and(Predicate) : 프레디케이트 연결     
+        Predicate<Apple> redAndHeavyAppleOrGreen = redApple.and(apple -> apple.getWeight() > 150).or(apple -> apple.getColor().equals(Color.GREEN));     // Predicate의 default 메소드 .and(Predicate) : 프레디케이트 연결  
+
 
 
     }
