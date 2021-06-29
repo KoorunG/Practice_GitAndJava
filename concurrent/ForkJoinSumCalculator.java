@@ -1,5 +1,9 @@
 package concurrent;
 
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.stream.LongStream;
+
 public class ForkJoinSumCalculator extends java.util.concurrent.RecursiveTask<Long> {
 
     private final long[] numbers;
@@ -31,6 +35,9 @@ public class ForkJoinSumCalculator extends java.util.concurrent.RecursiveTask<Lo
         
         Long rightResult = rightTask.compute();     // ☆ 한쪽을 compute()로 돌려 동기 실행함, 또한 이것으로 인해 추가 분할이 일어날 수 있다.
         Long leftResult = leftTask.join();          // 다른 한쪽은 join()으로 처음 서브태스크의 결과를 읽거나 결과가 없다면 대기
+                                                    
+                                                    // 지금 leftTask에는 .fork() 후 .join()을 하고 rightTask에는 .compute()를 했는데,
+                                                    // 이렇게 해야 두 서브태스크의 한 태스크에는 같은 쓰레드를 재사용할수 있기 때문에 효율적이다.(오버헤드를 피할 수 있다)
 
         
         return leftResult + rightResult ;           // 두 결과를 다시 더함 
@@ -42,6 +49,18 @@ public class ForkJoinSumCalculator extends java.util.concurrent.RecursiveTask<Lo
             sum += numbers[i];
         }
         return sum;
+    }
+
+    public static long forkJoinSum(long n){
+        long[] numbers = LongStream.rangeClosed(1, n).toArray();
+        ForkJoinTask<Long> task = new ForkJoinSumCalculator(numbers);
+        return new ForkJoinPool().invoke(task);
+        
+    }
+
+    public static void main(String[] args) {
+        long sumResult = forkJoinSum(10);
+        System.out.println(sumResult);
     }
 
     
