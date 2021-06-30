@@ -14,7 +14,9 @@ public class CollectionFactory {
         List<String> friends = new ArrayList<>();
         friends.add("Raphael");
         friends.add("Olivia");
-        friends.add("Thibaut");
+        friends.add("Thibaut");                     //ArrayList를 만들어 요소 추가 (크기 가변적으로 바뀜)
+
+
 
         List<String> friends2 = Arrays.asList("Raphael","Olivia","Thibaut");    //요소를 갱신할 수는 있으나, 새 요소를 추가하거나 삭제하는 것은 불가능
         // friends2.add("Koorung"); -> UnsupportedOperationException 발생
@@ -25,5 +27,5 @@ public class CollectionFactory {
         Set<String> friends5 = Stream.of("Raphael","Olivia","Thibaut").collect(Collectors.toSet());
 
         
-    }
+    }   // 반면 위의 팩토리 메소드는 (Arrays.asList나 Stream.of 같은거...) 간편하게 만들 수 있지만, 배열에 요소를 추가하거나 삭제하는것은 불가능하다 (수정만 가능)
 }

@@ -2,14 +2,15 @@ package collectionapi;
 
 import static java.util.Map.entry;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
+import java.util.Optional;
 
 public class MapMethods {
 
@@ -20,8 +21,10 @@ public class MapMethods {
         removingFromMaps();
         replacingInMaps();
         mergingMaps();
-        testInitializing();
+        // testInitializing();
         testInitializing2();
+        testRemoveIf();
+        testRemoveIf2();
         
     }
     
@@ -48,8 +51,10 @@ public class MapMethods {
 
         favouriteMovies.entrySet().stream()                         // 여기에 entrySet() -> 맵에 들어있는 전체 데이터 출력(key와 value값이 모두 필요한 경우)
             .sorted(Entry.comparingByKey())                         // 당연히 Set을 리턴함
-            .forEachOrdered(System.out::println);                   // Entry.comparingByKey -> Key를 기준으로 비교를하는 Comparator
-
+                                                                    // Entry.comparingByKey -> Key를 기준으로 비교를하는 Comparator
+            .forEachOrdered(System.out::println);                   // Stream.forEachOrdered(Consumer) ->
+                                                                    // 스트림의 각 요소에 대해 정의된 조우 순서가 있는 경우 스트림의 조우 순서에 따라 작업을 수행합니다.
+                                                                    // 즉 여기서는 sorted(Entry.comparingByKey) 에 의해 정해진 순서가 있기 때문에 쓰는 것임
 
     
         System.out.println("--> Using getOrDefault()");
@@ -149,21 +154,48 @@ public class MapMethods {
 
       private static void testInitializing(){
         Map<String,Long> moviesToCount = new HashMap<>();     // moivesToCount라는 HashMap을 만든다. <영화이름, 카운트>
-        String movieName = "JamesBond";                       
+        String movieName = "James Bond";                       
         long count = moviesToCount.get(movieName);            // count는 movieName을 키로, moviesToCount 해쉬맵에서 get()을 이용해 꺼낸다.
-        if (count == 0){                                      // count == 0 이면
+        if (count == 0l){                                      // count == 0 이면
           moviesToCount.put(movieName,1L);                    // count에 1L을 밀어 넣고
         }
         else{                                                 
           moviesToCount.put(movieName,count+1);               // 그게 아니면 기존 count에 +1을 하면 된다
+                                                              // 근데 왜 NullPointerException이 나오지...?
         }
       }
       
-      private static void testInitializing2(){
+      private static void testInitializing2(){              
         Map<String,Long> moviesToCount2 = new HashMap<>();
-        String movieName = "JamesBond";                       
+        String movieName = "James Bond";                       
         moviesToCount2.merge(movieName,1L,(key,count)->count+1L); 
       }
+
+      private static void testRemoveIf(){
+        Map<String, Integer> movies = new HashMap<>();
+        movies.put("JameBond", 20);
+        movies.put("Matrix", 15);
+        movies.put("Harry Potter", 5);
+        Iterator<Map.Entry<String, Integer>> iterator = movies.entrySet().iterator();
+        while(iterator.hasNext()){
+          Map.Entry<String, Integer> entry = iterator.next();   //iterator으로 돌리면서 entry를 추가한 뒤, 조건에 맞는 값 제거(remove)
+          if(entry.getValue() < 10){
+            iterator.remove();
+          }
+        }
+        System.out.println(movies);
+      }
+
+      private static void testRemoveIf2(){
+        Map<String, Integer> movies = new HashMap<>();
+        movies.put("JameBond", 20);
+        movies.put("Matrix", 15);
+        movies.put("Harry Potter", 5);
+        movies.entrySet().removeIf(entry -> entry.getValue() < 10);
+        System.out.println(movies);
+      }
+
+      
 
 
       // private static void computeDigest() throws NoSuchAlgorithmException{             
@@ -174,7 +206,7 @@ public class MapMethods {
 
       //   private byte[] calculateDigest(String key) {
       //     return messageDigest.digest(key.getBytes(StandardCharsets.UTF_8));
-      //   }
+      //   }  
 
       // }
 
