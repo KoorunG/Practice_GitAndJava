@@ -73,6 +73,5 @@ public class PracRefactoring {
         System.out.println(dishNamesBySequential);
 
     }
-           
     
 }
