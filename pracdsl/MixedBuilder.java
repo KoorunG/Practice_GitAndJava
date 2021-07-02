@@ -29,7 +29,7 @@ public class MixedBuilder {
     }
     
 
-    public class TradeBuilder {
+    public static class TradeBuilder {                      // 내부 클래스는 전역(static)클래스로 설정해줘야 외부클래스에서 참조가 쉽다...? (다시 알아볼것)
         private Trade trade = new Trade();
 
         public TradeBuilder quantity(int quantity){
@@ -48,7 +48,7 @@ public class MixedBuilder {
 
     }
 
-    public class StockBuilder {
+    public static class StockBuilder {
         private final TradeBuilder builder;
         private final Trade trade;
         private final Stock stock = new Stock();
