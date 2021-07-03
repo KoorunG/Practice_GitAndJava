@@ -5,15 +5,15 @@ import java.util.stream.Stream;
 
 public class MixedBuilder {
     
-    public static Order forCustomer(String customer, TradeBuilder ... builders){
-
+    public static Order forCustomer(String customer, TradeBuilder ... builders){            // TradeBuilder를 스트림 처리하여 추가함 -> 중첩 방식
+                                                                                        // forCustomer - buy,sell 사이에는 중첩 방식이 채용되었다
         Order order = new Order();
         order.setCustomer(customer);
         Stream.of(builders).forEach(b -> order.addTrade(b.trade));
         return order;
     }
 
-    public static TradeBuilder buy(Consumer<TradeBuilder> consumer){
+    public static TradeBuilder buy(Consumer<TradeBuilder> consumer){        // Consumer를 인수로 받음 -> 람다 방식
         return buildTrade(consumer, Trade.Type.BUY);
     }
 
@@ -43,7 +43,7 @@ public class MixedBuilder {
         }
 
         public StockBuilder stock(String symbol){
-            return new StockBuilder(this, trade, symbol);
+            return new StockBuilder(this, trade, symbol);       // TradeBuilder - StockBuilder 연결 -> 메소드 체이닝 방식
         }
 
     }

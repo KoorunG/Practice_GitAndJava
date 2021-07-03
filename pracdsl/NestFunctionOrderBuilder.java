@@ -28,7 +28,7 @@ public class NestFunctionOrderBuilder {
         return trade;
     }
 
-    public static double at(double price){
+    public static double at(double price){      // 인수의 역할을 확실하게 하는 더미 메소드 price -> at()
         return price;
     }
 
@@ -39,7 +39,7 @@ public class NestFunctionOrderBuilder {
         return stock;
     }
 
-    public static String on(String market){
+    public static String on(String market){     // 인수의 역할을 확실하게 하는 더미 메소드 market -> on()
         return market;
     }
 }

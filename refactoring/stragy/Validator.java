@@ -1,12 +1,12 @@
 package refactoring.stragy;
 
 public class Validator {
-    private final ValidationStrategy strategy;
-    public Validator(ValidationStrategy v){
+    private final ValidationStrategy strategy;          // 전략을 private final로 설정
+    public Validator(ValidationStrategy v){             // 인터페이스 ValidationStrategy를 인자로 받는 생성자
         this.strategy = v;
     }
     
-    public boolean validate(String s) {
+    public boolean validate(String s) {                 // 구현한 전략을 실행하는 메소드 validate(s)
         return strategy.execute(s);
     }
 }
@@ -28,6 +28,8 @@ class App {
         Validator lowerValidator = new Validator((String s) -> s.matches("[a-z]+"));
         boolean b2 = lowerValidator.validate("bbbb");
         System.out.println(b2);
+
+        //  Validator v1 = new Validator(s -> s.matches("전략을 직접 씀"));     // 이 경우... 굳이 인터페이스를 설정하지 않아도 되겠는데?
 
     }
    

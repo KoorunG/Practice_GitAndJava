@@ -2,7 +2,7 @@ package pracdsl;
 
 import java.util.function.Consumer;
 
-public class LambdaOrderBuilder {
+public class LambdaOrderBuilder {           // 메소드 쳉친과 비슷하지만, Consumer 객체를 인수로 받음으로써, 람다식으로 인수를 구현할 수 있게 함
     
     private Order order = new Order();      // 생성자 만든 뒤
 

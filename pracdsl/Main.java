@@ -48,8 +48,8 @@ public class Main {
     System.out.println(order);              // order 출력... 이 방법은 거래가 추가될때마다 같은 작업을 반복해줘야 한다는 큰 단점이 있다! (유지보수가 힘들다)
   }
 
-  private static void methodChaining() {   // 2. 메소드 체인 ( 메소드가 꼬리에 꼬리를 물고 반환되는 형태 )
-    Order order = forCustomer("BigBank")  //MethodChaningOrderBuilder의 정적 메소드 ( 여기서 start (MethodChaningOrderBuilde의 객체를 생성하는 메소드))
+  private static void methodChaining() {  // 2. 메소드 체인 ( 메소드가 꼬리에 꼬리를 물고 반환되는 형태 )
+    Order order = forCustomer("BigBank")  // MethodChaningOrderBuilder의 정적 메소드 ( 여기서 start (MethodChaningOrderBuilde의 객체를 생성하는 메소드))
                   .buy(80)
                   .stock("IBM")
                   .on("NYSE")
@@ -61,7 +61,7 @@ public class Main {
                   .end();                 // MethodChainingOrderBuilder -> Order       
                   
                                           // 즉 메소드가 꼬리를 물면서 참조하여 결론적으로 Order을 반환하는것...
-                                          //MethodChaningOrderBuilder의 forCustomer() static 메소드를 참조했어야함!!
+                                          // MethodChaningOrderBuilder의 forCustomer() static 메소드를 참조했어야함!!
 
     System.out.println("Method chaining:");
     System.out.println(order);
@@ -108,8 +108,9 @@ public class Main {
 
     private static void MixingDsl(){
       Order order = forCustomer("BigBank", buy(t-> t.quantity(80).stock("IBM").on("NYSE").at(125.00)),
-                                          sell(t-> t.quantity(50).stock("GOOGLE").on("NASDAQ").at(325.00)));
-      System.out.println("Mix Dsl : ");
+                                          sell(t-> t.quantity(50).stock("GOOGLE").on("NASDAQ").at(325.00))); //제일 깔끔하긴 하네 
+      System.out.println("Mix Dsl : ");   // forCustomer(customer, builders) (중첩)
+                                          // builder(람다식 ( 내부는 메소드 체인으로 연결 ))
       System.out.println(order);
       
     }
