@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
+import static java.util.Comparator.comparing;
 
 import chapter2.Apple.Color;
 
@@ -113,6 +114,8 @@ public class App {
                         return o1.getWeight() - o2.getWeight();
                     }
                 });
+
+                inventory.sort(comparing(Apple::getWeight));            // 메소드 참조
     }
 
     public static void callableTest(){
